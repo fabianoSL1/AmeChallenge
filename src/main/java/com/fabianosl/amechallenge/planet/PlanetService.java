@@ -1,12 +1,14 @@
 package com.fabianosl.amechallenge.planet;
 
 import com.fabianosl.amechallenge.planet.dto.CreatePlanetDTO;
+import com.fabianosl.amechallenge.swapi.SWapiService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -14,6 +16,8 @@ import java.util.Optional;
 public class PlanetService {
 
     private final PlanetRepository planetRepository;
+
+    private final SWapiService sWapiService;
 
     public List<Planet> getAllPlanets() {
         return planetRepository.findAll();
@@ -39,6 +43,13 @@ public class PlanetService {
 
     public Planet createPlanet(CreatePlanetDTO createPlanetDTO) {
         var planet = new Planet(createPlanetDTO);
+
+        try {
+            var countFilms = sWapiService.countFilmsByPlanetName(planet.getName());
+            planet.setFilms(countFilms);
+        } catch (Exception e) {
+            planet.setFilms(0);
+        }
 
         return planetRepository.save(planet);
     }

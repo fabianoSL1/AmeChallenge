@@ -10,3 +10,6 @@ spring:
 server:
   error:
     include-stacktrace: never
+
+swapi:
+  endpoint: "https://swapi.dev/api"

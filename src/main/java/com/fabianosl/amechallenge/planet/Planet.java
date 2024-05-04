@@ -1,26 +1,34 @@
 package com.fabianosl.amechallenge.planet;
 
 import com.fabianosl.amechallenge.planet.dto.CreatePlanetDTO;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Data
 public class Planet {
 
-    @Id @GeneratedValue(strategy = GenerationType.UUID)
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
+    @Column(unique = true)
     private String name;
 
     private String weather;
 
     private String terrain;
 
-    public Planet() {}
+    private int films;
+
+    @CreationTimestamp
+    private LocalDateTime createAt;
+
+    public Planet() {
+    }
 
     public Planet(CreatePlanetDTO planetDTO) {
         this.name = planetDTO.getName();
