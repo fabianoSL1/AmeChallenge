@@ -1,0 +1,12 @@
+
+spring:
+  jpa:
+    generate-ddl: true
+  datasource:
+    username: 'postgres'
+    password: 'admin'
+    url: 'jdbc:postgresql://localhost:5432/ame_challenge'
+
+server:
+  error:
+    include-stacktrace: never
