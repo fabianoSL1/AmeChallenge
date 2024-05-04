@@ -47,7 +47,7 @@ public class PlanetService {
         try {
             var countFilms = sWapiService.countFilmsByPlanetName(planet.getName());
             planet.setFilms(countFilms);
-        } catch (Exception e) {
+        } catch (NoSuchElementException e) {
             planet.setFilms(0);
         }
 
